@@ -21,7 +21,7 @@ public class PlantGenerator : MonoBehaviour
             return rules[key][randIndex];
         }
 
-        Debug.Log("no rule");
+        // Debug.Log("no rule");
 
         return key.ToString();
     }

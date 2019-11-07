@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8300681838174979634
 Transform:
@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ab828b154b21f4f9116fb11becc55f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grown: 0
   maxLength: 0
   rotation: {x: 0, y: 0, z: 0}
   worldEndPos: {x: 0, y: 0, z: 0}

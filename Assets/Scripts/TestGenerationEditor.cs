@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 
+ #if UNITY_EDITOR
 [CustomEditor (typeof (TestGeneration))]
 public class TestGenerationEditor : Editor
 {
@@ -31,3 +32,4 @@ public class TestGenerationEditor : Editor
         }
     }
 }
+#endif
