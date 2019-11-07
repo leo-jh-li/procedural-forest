@@ -21,5 +21,13 @@ public class TestGenerationEditor : Editor
         if (GUILayout.Button("Render")) {
             testGeneration.TestRenderer();
         }
+
+        if (GUILayout.Button("Recurse & Render")) {
+            testGeneration.RecurseAndRender();
+        }
+
+        if (GUILayout.Button("Clear All")) {
+            testGeneration.ClearPlants();
+        }
     }
 }

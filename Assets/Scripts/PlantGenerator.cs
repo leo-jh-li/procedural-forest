@@ -6,7 +6,8 @@ using System.Text;
 [ExecuteInEditMode]
 public class PlantGenerator : MonoBehaviour
 {
-    public Dictionary<char, List<string>> rules = new Dictionary<char, List<string>>();
+    // public Dictionary<char, List<string>> rules = new Dictionary<char, List<string>>();
+    
     public int iterations;
 
     public GameObject branchPrefab;
@@ -28,42 +29,85 @@ public class PlantGenerator : MonoBehaviour
 
     private void Awake() {
         Debug.Log("PlantGenerator Awake()");
-        AddRule('X', "[+FX][-FX]");
-        AddRule('F', "FF");
+        // AddRule('X', "F-[[X]+X]+F[+FX]-X");
+        // AddRule('X', "F+[[X]-X]-F[-FX]+X");
+        // AddRule('F', "FF");
+
+        // AddRule('X', "[-X][+X]");
+        // AddRule('X', "F[-X]");
+        // AddRule('X', "F[+X]");
+        // AddRule('X', "F[-X][X][+X]");
+        // AddRule('F', "FF");
     }
 
-    private void AddRule(char key, string value) {
-        if (rules.ContainsKey(key)) {
-            rules[key].Add(value);
-        } else {
-            rules.Add(key, new List<string>() { value });
-        }
-    }
+    // private void AddRule(char key, string value) {
+    //     if (rules.ContainsKey(key)) {
+    //         rules[key].Add(value);
+    //     } else {
+    //         rules.Add(key, new List<string>() { value });
+    //     }
+    // }
 
     // Returns a random rule for this key if one exists, or returns the key otherwise.
-    private string GetRule(char key) {
+    private string GetRule(char key, Dictionary<char, List<string>> rules) {
         if (rules.ContainsKey(key)) {
             int randIndex = Random.Range(0, rules[key].Count);
             return rules[key][randIndex];
         }
-            Debug.Log("no rule");
+
+        Debug.Log("no rule");
 
         return key.ToString();
     }
 
-    public string Recurse(string str, int iterations) {
+    public string Recurse(string str, RulesetDict rules, int iterations) {
+        if (!rules.rulesLoaded) {
+            rules.LoadRules();
+        }
+        Dictionary<char, List<string>> loadedRules = rules.rulesDict;
+
+        // Debug.Log(loadedRules);
+        foreach (KeyValuePair<char, List<string>> pair in loadedRules) {
+            Debug.Log(pair.Key);
+            Debug.Log(pair.Value);
+
+
+        }
+        // Debug.Log(loadedRules['F']);
+        // Debug.Log(loadedRules['X']);
+
+
+        return Recurse(str, loadedRules, iterations);
+    }
+
+    public string Recurse(string str, Dictionary<char, List<string>> rules, int iterations) {
         Debug.Log("recursing " + str + " " + iterations + " times");
 
         for (int i = 0; i < iterations; i++) {
             StringBuilder stringBuilder = new StringBuilder();
             for (int j = 0; j < str.Length; j++) {
-                stringBuilder.Append(GetRule(str[j]));
+                stringBuilder.Append(GetRule(str[j], rules));
             }
             str = stringBuilder.ToString();
         }
-        Debug.Log("result " + str);
+        Debug.Log("result: " + str);
         return str;
     }
+    
+    // // Recurse using rules defined by the rules member
+    // public string ManualRecurse(string str, int iterations) {
+    //     Debug.Log("recursing " + str + " " + iterations + " times");
+
+    //     for (int i = 0; i < iterations; i++) {
+    //         StringBuilder stringBuilder = new StringBuilder();
+    //         for (int j = 0; j < str.Length; j++) {
+    //             stringBuilder.Append(GetRule(str[j], rules));
+    //         }
+    //         str = stringBuilder.ToString();
+    //     }
+    //     Debug.Log("result: " + str);
+    //     return str;
+    // }
 
     public void DisplayPlant(string plant, Vector3 startPosition) {
 
@@ -78,8 +122,12 @@ public class PlantGenerator : MonoBehaviour
         // Transform lastTransform = null;
         Vector3 rotation = Vector3.zero;
 
-        Branch prevBranch = null;
-
+        // Branch prevBranch = null;
+        // Create parent branch
+        Branch parentBranch = Instantiate(branchPrefab, startPosition, Quaternion.identity).GetComponent<Branch>();
+        parentBranch.Initialize(0, Vector3.zero, 0, true);
+        activeBranches.Add(parentBranch.gameObject);
+        Branch prevBranch = parentBranch;
 
         for (int i = 0; i < plant.Length; i++) {
             switch (plant[i]) {
@@ -133,9 +181,10 @@ public class PlantGenerator : MonoBehaviour
                     break;
             }
         }
+        StartCoroutine(parentBranch.Grow());
     }
 
-    public void CleanPlants() {
+    public void ClearPlants() {
         for (int i = 0; i < activeBranches.Count; i++) {
             DestroyImmediate(activeBranches[i]);
         }

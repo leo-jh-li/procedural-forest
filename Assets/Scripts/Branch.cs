@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Branch : MonoBehaviour
 {
+    private LineRenderer lineRenderer;
+    public bool grown;
     private float currLength;
     public float maxLength;
     public Vector3 rotation;
@@ -11,6 +13,8 @@ public class Branch : MonoBehaviour
     public float growthSpeed;
 
     public void Initialize(float maxLength, Vector3 rotation, float growthSpeed, bool instantGrowth) {
+        lineRenderer = GetComponent<LineRenderer>();
+        grown = false;
         currLength = 0;
         this.maxLength = maxLength;
         this.rotation = rotation;
@@ -24,27 +28,40 @@ public class Branch : MonoBehaviour
 
         // GetComponent<LineRenderer>().SetPosition(1, worldEndPos);
         if (instantGrowth) { 
-            GetComponent<LineRenderer>().SetPositions(new Vector3[]{transform.position, worldEndPos});
-            
+            lineRenderer.enabled = true;
+            lineRenderer.SetPositions(new Vector3[]{transform.position, worldEndPos});
+            grown = true;
         } else {
-            GetComponent<LineRenderer>().SetPositions(new Vector3[]{transform.position, transform.position});
-            StartCoroutine("Grow");
+            lineRenderer.SetPositions(new Vector3[]{transform.position, transform.position});
         }
     }
 
-    private IEnumerator Grow() {
+    public IEnumerator Grow() {
+        lineRenderer.enabled = true;
         while (currLength != maxLength) {
-            GetComponent<LineRenderer>().SetPosition(1, Vector3.Lerp(transform.position, worldEndPos, currLength / maxLength));
+            lineRenderer.SetPosition(1, Vector3.Lerp(transform.position, worldEndPos, currLength / maxLength));
             currLength = Mathf.Min(currLength + growthSpeed, maxLength);
             // Debug.Log("growing: " + Vector3.Lerp(transform.position, worldEndPos, currLength / maxLength));
             // Debug.Log("lerp: " + (currLength / maxLength));
             // Debug.Log(currLength + " + " + growthSpeed + "/" + maxLength);
             // Debug.Log(Mathf.Min(currLength + growthSpeed, maxLength));
 
-
-
             yield return null;
         }
-        GetComponent<LineRenderer>().SetPosition(1, worldEndPos);
+        lineRenderer.SetPosition(1, worldEndPos);
+        // foreach(Branch childBranch in GetComponentsInChildren<Branch>())
+        // {
+        //     Debug.Log("grow");
+        //     StartCoroutine(childBranch.Grow());
+        // }
+        grown = true;
+        foreach(Transform childTransform in transform)
+        {
+            Debug.Log("grow");
+            Branch childBranch = childTransform.GetComponent<Branch>();
+            if (!childBranch.grown) {
+                StartCoroutine(childBranch.Grow());
+            }
+        }
     }
 }
