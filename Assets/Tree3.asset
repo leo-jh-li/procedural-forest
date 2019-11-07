@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Tree3
   m_EditorClassIdentifier: 
   name: Tree3
-  branchLength: 2
+  branchLength: 1
+  angle: 20
+  growthSpeed: 0.1
   gradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -43,8 +45,8 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+  axiom: X
   ruleset:
-    axiom: 88
     characterRules:
     - character: 88
       rules:

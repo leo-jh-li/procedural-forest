@@ -16,7 +16,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Seeds
   - 
   - 
   - 
@@ -41,4 +41,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Seeds
+    uniqueID: 4241826817
+    locked: 0
+  - name: Soil
+    uniqueID: 3990832219
     locked: 0

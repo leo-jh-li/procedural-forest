@@ -9,7 +9,11 @@ public class TestGeneration : MonoBehaviour
     public string recursedTree;
     public int iterations;
 
+    // TODO: temp?
     public float branchLength;
+    public float angle;
+    public float growthSpeed;
+
     public bool autoUpdate;
 
     private PlantGenerator generator;
@@ -39,14 +43,11 @@ public class TestGeneration : MonoBehaviour
     }
 
     public void TestRecurse() {
-        // PlantGenerator generator = GetComponent<PlantGenerator>();
         recursedTree = generator.Recurse(testTree, testRules, iterations);
     }
 
     public void TestRenderer() {
-        // PlantGenerator generator = GetComponent<PlantGenerator>();
-        generator.branchLength = branchLength;
-        generator.DisplayPlant(testTree, Vector3.zero);
+        generator.DisplayPlant(testTree, Vector3.zero, branchLength, angle, growthSpeed);
     }
 
     public void RecurseAndRender() {

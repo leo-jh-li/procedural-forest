@@ -28,10 +28,8 @@ public class PlayerControls : MonoBehaviour
 
     private void DropSeed() {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-
+        
         // TODO
         Instantiate(testSeed, new Vector2(ray.origin.x, ray.origin.y), Quaternion.identity);
-
-        // Debug.Log(Object.FindObjectOfType<PlantGenerator>());
     }
 }
