@@ -10,6 +10,8 @@ public class PlantGenerator : MonoBehaviour
     public bool instantGrowth;
     private List<GameObject> activeBranches = new List<GameObject>();
 
+    public GameObject glTreePrefab;
+
     public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles) {
         return Quaternion.Euler(angles) * (point - pivot) + pivot;
     }
@@ -40,14 +42,14 @@ public class PlantGenerator : MonoBehaviour
         return str;
     }
 
-    public void DisplayPlant(string plant, Vector3 startPosition, float branchLength, float angle, float growthSpeed) {
+    public void DisplayPlant(string plant, Vector3 startPosition, float branchLength, float angle, float growthSpeed, Color colour) {
         Stack<Branch> branchStack = new Stack<Branch>();
 
         Vector3 rotation = Vector3.zero;
 
         // Create parent branch
         Branch parentBranch = Instantiate(branchPrefab, startPosition, Quaternion.identity).GetComponent<Branch>();
-        parentBranch.Initialize(0, Vector3.zero, 0, true);
+        parentBranch.Initialize(0, Vector3.zero, 0, colour, true);
         activeBranches.Add(parentBranch.gameObject);
         Branch prevBranch = parentBranch;
 
@@ -55,15 +57,9 @@ public class PlantGenerator : MonoBehaviour
             switch (plant[i]) {
                 case 'F':
                     Branch newBranch;
-                    if (prevBranch != null) {
-                        // Build new branch off previous branch
-                        newBranch = Instantiate(branchPrefab, prevBranch.worldEndPos, Quaternion.identity, prevBranch.transform).GetComponent<Branch>();
-                        rotation += prevBranch.rotation;
-                    } else {
-                        // Create initial branch
-                        newBranch = Instantiate(branchPrefab).GetComponent<Branch>();
-                    }
-                    newBranch.Initialize(branchLength, rotation, growthSpeed, instantGrowth);
+                    newBranch = Instantiate(branchPrefab, prevBranch.worldEndPos, Quaternion.identity, prevBranch.transform).GetComponent<Branch>();
+                    rotation += prevBranch.rotation;
+                    newBranch.Initialize(branchLength, rotation, growthSpeed, colour, instantGrowth);
                     prevBranch = newBranch;
                     activeBranches.Add(newBranch.gameObject);
                     rotation = Vector3.zero;
@@ -83,6 +79,41 @@ public class PlantGenerator : MonoBehaviour
             }
         }
         StartCoroutine(parentBranch.Grow());
+    }
+
+    // Alternative display method for plays: GL lines
+    public void DisplayPlantGL(string plant, Vector3 startPosition, float branchLength, float angle, float growthSpeed) {
+        Stack<BranchInfo> branchStack = new Stack<BranchInfo>();
+
+        Vector3 rotation = Vector3.zero;
+        BranchInfo prevBranch = new BranchInfo(startPosition, Vector3.zero);
+
+        GLTree rootBranch = Instantiate(glTreePrefab, startPosition, Quaternion.identity).GetComponent<GLTree>();
+
+        for (int i = 0; i < plant.Length; i++) {
+            switch (plant[i]) {
+                case 'F':
+                    rotation += prevBranch.rotation;
+                    Vector3 worldEndPos = RotatePointAroundPivot(prevBranch.endPosition + Vector3.up * branchLength, prevBranch.endPosition, rotation);
+                    rootBranch.points.Add(prevBranch.endPosition);
+                    rootBranch.points.Add(worldEndPos);
+                    prevBranch = new BranchInfo(worldEndPos, rotation);
+                    rotation = Vector3.zero;
+                    break;
+                case '[':
+                    branchStack.Push(prevBranch);
+                    break;
+                case ']':
+                    prevBranch = branchStack.Pop();
+                    break;
+                case '+':
+                    rotation += Vector3.forward * angle;
+                    break;
+                case '-':
+                    rotation -= Vector3.forward * angle;
+                    break;
+            }
+        }
     }
 
     public void ClearPlants() {

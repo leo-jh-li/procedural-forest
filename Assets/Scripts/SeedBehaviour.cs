@@ -11,7 +11,9 @@ public class SeedBehaviour : MonoBehaviour
             // TODO: OPTIMIZE
             PlantGenerator gen = Object.FindObjectOfType<PlantGenerator>();
             string recursedTree = gen.Recurse(seed.axiom, seed.rulesDict, seed.iterations);
-            gen.DisplayPlant(recursedTree, transform.position, seed.branchLength, seed.angle, seed.growthSpeed);
+            // gen.DisplayPlant(recursedTree, transform.position, seed.branchLength, seed.angle, seed.growthSpeed);
+            // TODO: test
+            gen.DisplayPlant(recursedTree, transform.position, seed.branchLength, seed.angle, seed.growthSpeed, seed.GetColour());
             Destroy(gameObject);
         }
     }

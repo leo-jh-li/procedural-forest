@@ -6,6 +6,8 @@ public class PlayerControls : MonoBehaviour
 {
     [SerializeField] private float dropCooldown;
     private float currCooldown;
+    [SerializeField] private GameObject eraser;
+    private bool eraserEnabled;
     private Camera cam;
 
     public GameObject testSeed;
@@ -24,12 +26,29 @@ public class PlayerControls : MonoBehaviour
                 currCooldown = dropCooldown;
             }
         }
+        if (Input.GetButton("Fire2")) {
+            // TODO
+            // EraserOn();
+            eraser.SetActive(true);
+            eraser.transform.position = GetMousePos(cam);
+        }
     }
 
+    public static Vector2 GetMousePos(Camera camera) {
+        return camera.ScreenPointToRay(Input.mousePosition).origin;
+    }
+
+    // TODO
+    // private void EraserOn() {
+    //     if (!eraserEnabled) {
+    //         eraser.SetActive(true);
+    //         eraserEnabled = true;
+    //     }
+    // }
+
     private void DropSeed() {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        
+        // Vector3 mousePos = GetMousePos();
         // TODO
-        Instantiate(testSeed, new Vector2(ray.origin.x, ray.origin.y), Quaternion.identity);
+        Instantiate(testSeed, GetMousePos(cam), Quaternion.identity);
     }
 }

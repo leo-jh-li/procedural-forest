@@ -16,12 +16,6 @@ public class Seed : ScriptableObject {
     [SerializeField] private RulesetDict ruleset = new RulesetDict();
     [HideInInspector] public Dictionary<char, List<string>> rulesDict = new Dictionary<char, List<string>>();
 
-
-    // TODO: colour gradient, maybe seed shape/sprite
-
-
-
-
     private void OnEnable() {
         LoadRules();
     }
@@ -31,5 +25,9 @@ public class Seed : ScriptableObject {
             rulesDict.Add(charRules.character, charRules.rules);
         }
         Debug.Log("rules loaded");
+    }
+
+    public Color GetColour() {
+        return gradient.Evaluate(Random.Range(0f, 1f));
     }
 }

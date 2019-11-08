@@ -9,10 +9,10 @@ public class TestGeneration : MonoBehaviour
     public string recursedTree;
     public int iterations;
 
-    // TODO: temp?
     public float branchLength;
     public float angle;
     public float growthSpeed;
+    public Color colour;
 
     public bool autoUpdate;
 
@@ -47,7 +47,7 @@ public class TestGeneration : MonoBehaviour
     }
 
     public void TestRenderer() {
-        generator.DisplayPlant(testTree, Vector3.zero, branchLength, angle, growthSpeed);
+        generator.DisplayPlant(testTree, Vector3.zero, branchLength, angle, growthSpeed, colour);
     }
 
     public void RecurseAndRender() {
