@@ -10,6 +10,7 @@ public class TestGeneration : MonoBehaviour
     public int iterations;
 
     public float branchLength;
+    public float branchWidth;
     public float angle;
     public float growthSpeed;
     public Color colour;
@@ -47,7 +48,7 @@ public class TestGeneration : MonoBehaviour
     }
 
     public void TestRenderer() {
-        generator.DisplayPlant(testTree, Vector3.zero, branchLength, angle, growthSpeed, colour);
+        generator.DisplayPlant(testTree, 0, branchLength, branchWidth, angle, growthSpeed, colour);
     }
 
     public void RecurseAndRender() {

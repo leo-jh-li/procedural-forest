@@ -10,10 +10,10 @@ public class SeedBehaviour : MonoBehaviour
         if(col.gameObject.CompareTag("Soil")) {
             // TODO: OPTIMIZE
             PlantGenerator gen = Object.FindObjectOfType<PlantGenerator>();
-            string recursedTree = gen.Recurse(seed.axiom, seed.rulesDict, seed.iterations);
+            string recursedTree = gen.Recurse(seed.axiom, seed.rulesDict, seed.iterations.GetRandom());
             // gen.DisplayPlant(recursedTree, transform.position, seed.branchLength, seed.angle, seed.growthSpeed);
             // TODO: test
-            gen.DisplayPlant(recursedTree, transform.position, seed.branchLength, seed.angle, seed.growthSpeed, seed.GetColour());
+            gen.DisplayPlant(recursedTree, transform.position.x, seed.branchLength, seed.branchWidth, seed.angle, seed.growthSpeed, seed.GetColour());
             Destroy(gameObject);
         }
     }

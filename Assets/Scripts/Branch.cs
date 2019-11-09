@@ -8,18 +8,22 @@ public class Branch : MonoBehaviour
     public bool grown;
     private float currLength;
     public float maxLength;
+    public float width;
     public Vector3 rotation;
     public Vector3 worldEndPos;
     public float growthSpeed;
     [SerializeField] private CapsuleCollider2D collider;
 
-    public void Initialize(float maxLength, Vector3 rotation, float growthSpeed, Color colour, bool instantGrowth) {
+    public void Initialize(float maxLength, float width, Vector3 rotation, float growthSpeed, Color colour, bool instantGrowth) {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.startColor = colour;
         lineRenderer.endColor = colour;
+        lineRenderer.startWidth = width;
+        lineRenderer.endWidth = width;
         grown = false;
         currLength = 0;
         this.maxLength = maxLength;
+        this.width = width;
         this.rotation = rotation;
         collider.transform.eulerAngles = rotation;
         this.growthSpeed = growthSpeed;
@@ -30,9 +34,10 @@ public class Branch : MonoBehaviour
             collider.enabled = true;
             // Place collider in centre of branch and with proper length
             collider.transform.localPosition = worldEndPos - transform.position;
-            collider.size = new Vector2(collider.size.x, maxLength);
+            collider.size = new Vector2(Mathf.Max(width, 0.01f), maxLength);
             grown = true;
         } else {
+            collider.size = new Vector2(Mathf.Max(width, 0.01f), 0);
             lineRenderer.SetPositions(new Vector3[]{transform.position, transform.position});
         }
     }

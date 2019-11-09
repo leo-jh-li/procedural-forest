@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6062103340088042588}
   - component: {fileID: 6062103340088042589}
   m_Layer: 10
-  m_Name: TestSeed (Tree3)
+  m_Name: SeedTemplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,4 +149,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa616a67eb70a9469ff13094de17f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: {fileID: 11400000, guid: 6f38ecb94e57244449e9cccf658edc54, type: 2}
+  seed: {fileID: 0}

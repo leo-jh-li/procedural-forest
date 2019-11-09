@@ -9,8 +9,14 @@ public class PlantGenerator : MonoBehaviour
     public GameObject branchPrefab;
     public bool instantGrowth;
     private List<GameObject> activeBranches = new List<GameObject>();
+    [SerializeField] private Transform spawnHeightTransform;
+    private float startPosY;
 
     public GameObject glTreePrefab;
+
+    private void Start() {
+        startPosY = spawnHeightTransform.position.y;
+    }
 
     public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles) {
         return Quaternion.Euler(angles) * (point - pivot) + pivot;
@@ -42,14 +48,14 @@ public class PlantGenerator : MonoBehaviour
         return str;
     }
 
-    public void DisplayPlant(string plant, Vector3 startPosition, float branchLength, float angle, float growthSpeed, Color colour) {
+    public void DisplayPlant(string plant, float startPosX, float branchLength, float branchWidth, float angle, float growthSpeed, Color colour) {
         Stack<Branch> branchStack = new Stack<Branch>();
 
         Vector3 rotation = Vector3.zero;
 
         // Create parent branch
-        Branch parentBranch = Instantiate(branchPrefab, startPosition, Quaternion.identity).GetComponent<Branch>();
-        parentBranch.Initialize(0, Vector3.zero, 0, colour, true);
+        Branch parentBranch = Instantiate(branchPrefab, new Vector2(startPosX, startPosY), Quaternion.identity).GetComponent<Branch>();
+        parentBranch.Initialize(0, 0, Vector3.zero, 0, colour, true);
         activeBranches.Add(parentBranch.gameObject);
         Branch prevBranch = parentBranch;
 
@@ -59,7 +65,7 @@ public class PlantGenerator : MonoBehaviour
                     Branch newBranch;
                     newBranch = Instantiate(branchPrefab, prevBranch.worldEndPos, Quaternion.identity, prevBranch.transform).GetComponent<Branch>();
                     rotation += prevBranch.rotation;
-                    newBranch.Initialize(branchLength, rotation, growthSpeed, colour, instantGrowth);
+                    newBranch.Initialize(branchLength, branchWidth, rotation, growthSpeed, colour, instantGrowth);
                     prevBranch = newBranch;
                     activeBranches.Add(newBranch.gameObject);
                     rotation = Vector3.zero;

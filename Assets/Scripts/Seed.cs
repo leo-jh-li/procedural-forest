@@ -7,9 +7,10 @@ public class Seed : ScriptableObject {
 
     public new string name;
     public float branchLength;
+    public float branchWidth;
     public float angle;
     public float growthSpeed;
-    public int iterations;
+    public RandomRange iterations;
 
     public Gradient gradient;
     public string axiom;

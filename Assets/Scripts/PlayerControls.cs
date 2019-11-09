@@ -8,9 +8,8 @@ public class PlayerControls : MonoBehaviour
     private float currCooldown;
     [SerializeField] private GameObject eraser;
     private bool eraserEnabled;
+    public GameObject[] seedPrefabs;
     private Camera cam;
-
-    public GameObject testSeed;
 
     private void Start() {
         cam = Camera.main;
@@ -27,8 +26,6 @@ public class PlayerControls : MonoBehaviour
             }
         }
         if (Input.GetButton("Fire2")) {
-            // TODO
-            // EraserOn();
             eraser.SetActive(true);
             eraser.transform.position = GetMousePos(cam);
         }
@@ -38,17 +35,11 @@ public class PlayerControls : MonoBehaviour
         return camera.ScreenPointToRay(Input.mousePosition).origin;
     }
 
-    // TODO
-    // private void EraserOn() {
-    //     if (!eraserEnabled) {
-    //         eraser.SetActive(true);
-    //         eraserEnabled = true;
-    //     }
-    // }
+    private GameObject GetRandomSeed() {
+        return seedPrefabs[Random.Range(0, seedPrefabs.Length)];
+    }
 
     private void DropSeed() {
-        // Vector3 mousePos = GetMousePos();
-        // TODO
-        Instantiate(testSeed, GetMousePos(cam), Quaternion.identity);
+        Instantiate(GetRandomSeed(), GetMousePos(cam), Quaternion.identity);
     }
 }
