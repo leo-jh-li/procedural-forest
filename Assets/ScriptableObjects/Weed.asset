@@ -10,17 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3e38166103ff53459f2b2a6aec2679d, type: 3}
-  m_Name: Tree3
+  m_Name: Weed
   m_EditorClassIdentifier: 
   name: Tree3
-  branchLength: 1
+  branchLength: 1.5
+  branchWidth: 0.2
   angle: 20
   growthSpeed: 6
-  iterations: 5
+  iterations:
+    min: 6
+    max: 6
   gradient:
     serializedVersion: 2
-    key0: {r: 0.21568628, g: 0.08627451, b: 0, a: 1}
-    key1: {r: 0.15686275, g: 0.047058824, b: 0, a: 1}
+    key0: {r: 0.0011087802, g: 0.4433962, b: 0, a: 1}
+    key1: {r: 0.004805972, g: 0.33962262, b: 0.004805972, a: 1}
     key2: {r: 1, g: 1, b: 1, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -46,13 +49,21 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  axiom: X
+  axiom: VZFFF
   ruleset:
     characterRules:
+    - character: 86
+      rules:
+      - '[+W][-W]YV'
+    - character: 87
+      rules:
+      - +X[-W]Z
     - character: 88
       rules:
-      - F-[[X]+X]+F[+FX]-X
-      - F+[[X]-X]-F[-FX]+X
-    - character: 70
+      - -W[+X]Z
+    - character: 89
       rules:
-      - FF
+      - YZ
+    - character: 90
+      rules:
+      - '[-FFF][+FFF]F'

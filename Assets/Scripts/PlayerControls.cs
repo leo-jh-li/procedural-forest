@@ -8,7 +8,8 @@ public class PlayerControls : MonoBehaviour
     private float currCooldown;
     [SerializeField] private GameObject eraser;
     private bool eraserEnabled;
-    public GameObject[] seedPrefabs;
+    [SerializeField] private GameObject seedPrefab;
+    [SerializeField] private Seed[] seeds;
     private Camera cam;
 
     private void Start() {
@@ -35,11 +36,12 @@ public class PlayerControls : MonoBehaviour
         return camera.ScreenPointToRay(Input.mousePosition).origin;
     }
 
-    private GameObject GetRandomSeed() {
-        return seedPrefabs[Random.Range(0, seedPrefabs.Length)];
+    private Seed GetRandomSeed() {
+        return seeds[Random.Range(0, seeds.Length)];
     }
 
     private void DropSeed() {
-        Instantiate(GetRandomSeed(), GetMousePos(cam), Quaternion.identity);
+        GameObject seedObj = Instantiate(seedPrefab, GetMousePos(cam), Quaternion.identity);
+        seedObj.GetComponent<SeedBehaviour>().seed = GetRandomSeed();
     }
 }
