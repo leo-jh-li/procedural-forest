@@ -22,16 +22,9 @@ public class TestGeneration : MonoBehaviour
     private Dictionary<char, List<string>> testRules = new Dictionary<char, List<string>>();
 
     void Awake() {
-        Debug.Log("TestGeneration Awake()");
-        // AddRule('X', "F-[[X]+X]+F[+FX]-X");
-        // AddRule('X', "F+[[X]-X]-F[-FX]+X");
-        // AddRule('F', "FF");
-
-        // AddRule('X', "[-X][+X]");
-        // AddRule('X', "F[-X]");
-        // AddRule('X', "F[+X]");
-        // AddRule('X', "F[-X][X][+X]");
-        // AddRule('F', "FF");
+        AddRule('X', "F-[[X]+X]+F[+FX]-X");
+        AddRule('X', "F+[[X]-X]-F[-FX]+X");
+        AddRule('F', "FF");
         generator = GetComponent<PlantGenerator>();
     }
 

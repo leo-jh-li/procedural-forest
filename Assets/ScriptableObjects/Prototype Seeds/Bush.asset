@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3e38166103ff53459f2b2a6aec2679d, type: 3}
-  m_Name: Weed
+  m_Name: Bush
   m_EditorClassIdentifier: 
-  name: Weed
-  branchLength: 1.4
-  branchWidth: 0.2
+  name: Bush
+  branchLength: 1.5
+  branchWidth: 0.18
   angle: 20
   growthSpeed: 6
   iterations:
-    min: 4
+    min: 6
     max: 6
   gradient:
     serializedVersion: 2
@@ -54,16 +54,13 @@ MonoBehaviour:
     characterRules:
     - character: 86
       rules:
-      - '[+W][-W]YV'
-      - YV[+W][-W]
+      - '[+++W][---W]YV'
     - character: 87
       rules:
       - +X[-W]Z
-      - Z+X[-W]
     - character: 88
       rules:
       - -W[+X]Z
-      - Z-W[+X]
     - character: 89
       rules:
       - YZ

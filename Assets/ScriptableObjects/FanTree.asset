@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3e38166103ff53459f2b2a6aec2679d, type: 3}
-  m_Name: Weed
+  m_Name: FanTree
   m_EditorClassIdentifier: 
-  name: Weed
-  branchLength: 1.4
-  branchWidth: 0.2
-  angle: 20
+  name: FanTree
+  branchLength: 3
+  branchWidth: 0.3
+  angle: 25
   growthSpeed: 6
   iterations:
-    min: 4
-    max: 6
+    min: 3
+    max: 5
   gradient:
     serializedVersion: 2
-    key0: {r: 0.0011087802, g: 0.4433962, b: 0, a: 1}
-    key1: {r: 0.004805972, g: 0.33962262, b: 0.004805972, a: 1}
+    key0: {r: 0.21568628, g: 0.08627451, b: 0, a: 1}
+    key1: {r: 0.15686275, g: 0.047058824, b: 0, a: 1}
     key2: {r: 1, g: 1, b: 1, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -49,24 +49,18 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  axiom: VZFFF
+  axiom: X
   ruleset:
     characterRules:
-    - character: 86
-      rules:
-      - '[+W][-W]YV'
-      - YV[+W][-W]
-    - character: 87
-      rules:
-      - +X[-W]Z
-      - Z+X[-W]
     - character: 88
       rules:
-      - -W[+X]Z
-      - Z-W[+X]
+      - F[-FY]F[+FZ]FX
+      - F[+FY]F[-FZ]FX
     - character: 89
       rules:
-      - YZ
+      - F[-FY]F[+F]FY
+      - F[+FY]F[-F]FY
     - character: 90
       rules:
-      - '[-FFF][+FFF]F'
+      - F[-F]F[+FZ]FZ
+      - F[+F]F[-FZ]FZ

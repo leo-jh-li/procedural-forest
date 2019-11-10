@@ -28,15 +28,10 @@ public class PlantGenerator : MonoBehaviour
             int randIndex = Random.Range(0, rules[key].Count);
             return rules[key][randIndex];
         }
-
-        // Debug.Log("no rule");
-
         return key.ToString();
     }
 
     public string Recurse(string str, Dictionary<char, List<string>> rules, int iterations) {
-        // Debug.Log("recursing " + str + " " + iterations + " times");
-
         for (int i = 0; i < iterations; i++) {
             StringBuilder stringBuilder = new StringBuilder();
             for (int j = 0; j < str.Length; j++) {
@@ -44,23 +39,20 @@ public class PlantGenerator : MonoBehaviour
             }
             str = stringBuilder.ToString();
         }
-        // Debug.Log("result: " + str);
         return str;
     }
 
     public void DisplayPlant(string plant, float startPosX, float branchLength, float branchWidth, float angle, float growthSpeed, Color colour) {
-    //     // TODO: rename BranchState? also rename to rootbranch?
-
         Stack<Branch> branchStack = new Stack<Branch>();
         Stack<Vector3> rotationStack = new Stack<Vector3>();
 
         Vector3 rotation = Vector3.zero;
 
-        // Create parent branch
-        Branch parentBranch = Instantiate(branchPrefab, new Vector2(startPosX, startPosY), Quaternion.identity).GetComponent<Branch>();
-        parentBranch.Initialize(0, 0, Vector3.zero, 0, colour, true);
-        activeBranches.Add(parentBranch.gameObject);
-        Branch prevBranch = parentBranch;
+        // Create root branch
+        Branch rootBranch = Instantiate(branchPrefab, new Vector2(startPosX, startPosY), Quaternion.identity).GetComponent<Branch>();
+        rootBranch.Initialize(0, 0, Vector3.zero, 0, colour, true);
+        activeBranches.Add(rootBranch.gameObject);
+        Branch prevBranch = rootBranch;
 
         for (int i = 0; i < plant.Length; i++) {
             switch (plant[i]) {
@@ -82,99 +74,15 @@ public class PlantGenerator : MonoBehaviour
                     rotation = rotationStack.Pop();
                     break;
                 case '+':
-                    rotation += Vector3.forward * angle;
+                    rotation -= Vector3.forward * angle;
                     break;
                 case '-':
-                    rotation -= Vector3.forward * angle;
+                    rotation += Vector3.forward * angle;
                     break;
             }
         }
-        StartCoroutine(parentBranch.Grow());
+        StartCoroutine(rootBranch.Grow());
     }
-
-    // public void DisplayPlant(string plant, float startPosX, float branchLength, float branchWidth, float angle, float growthSpeed, Color colour) {
-    //     // TODO: rename BranchState? also rename to rootbranch?
-    //     Stack<BranchHistory> branchStack = new Stack<BranchHistory>();
-
-    //     Vector3 endPos = new Vector3(startPosX, startPosY, 0);
-    //     Vector3 rotation = Vector3.zero;
-
-    //     // Create root branch
-    //     Branch parentBranch = Instantiate(branchPrefab, endPos, Quaternion.identity).GetComponent<Branch>();
-    //     parentBranch.Initialize(0, 0, Vector3.zero, 0, colour, true);
-    //     activeBranches.Add(parentBranch.gameObject);
-    //     Branch prevBranch = parentBranch;
-
-    //     for (int i = 0; i < plant.Length; i++) {
-    //         switch (plant[i]) {
-    //             case 'F':
-    //                 Branch newBranch;
-    //                 newBranch = Instantiate(branchPrefab, prevBranch.worldEndPos, Quaternion.identity, prevBranch.transform).GetComponent<Branch>();
-    //                 // rotation = prevBranch.rotation;
-    //                 newBranch.Initialize(branchLength, branchWidth, rotation, growthSpeed, colour, instantGrowth);
-    //                 prevBranch = newBranch;
-    //                 activeBranches.Add(newBranch.gameObject);
-    //                 // rotation = Vector3.zero;
-    //                 break;
-    //             case '[':
-    //                 branchStack.Push(new BranchHistory(prevBranch.endPosition, prevBranch.rotation + rotation));
-    //                 // branchStack.Push(prevBranch);
-    //                 break;
-    //             case ']':
-    //                 prevBranch = branchStack.Pop();
-    //                 rotation = prevBranch.rotation;
-    //                 break;
-    //             case '+':
-    //                 rotation += Vector3.forward * angle;
-    //                 break;
-    //             case '-':
-    //                 rotation -= Vector3.forward * angle;
-    //                 break;
-    //         }
-    //     }
-    //     StartCoroutine(parentBranch.Grow());
-    // }
-
-    // public void DisplayPlant(string plant, float startPosX, float branchLength, float branchWidth, float angle, float growthSpeed, Color colour) {
-    //     Stack<Branch> branchStack = new Stack<Branch>();
-
-    //     Vector3 rotation = Vector3.zero;
-
-    //     // Create parent branch
-    //     Branch parentBranch = Instantiate(branchPrefab, new Vector2(startPosX, startPosY), Quaternion.identity).GetComponent<Branch>();
-    //     parentBranch.Initialize(0, 0, Vector3.zero, 0, colour, true);
-    //     activeBranches.Add(parentBranch.gameObject);
-    //     Branch prevBranch = parentBranch;
-
-    //     for (int i = 0; i < plant.Length; i++) {
-    //         switch (plant[i]) {
-    //             case 'F':
-    //                 Branch newBranch;
-    //                 newBranch = Instantiate(branchPrefab, prevBranch.worldEndPos, Quaternion.identity, prevBranch.transform).GetComponent<Branch>();
-    //                 // rotation = prevBranch.rotation;
-    //                 newBranch.Initialize(branchLength, branchWidth, rotation, growthSpeed, colour, instantGrowth);
-    //                 prevBranch = newBranch;
-    //                 activeBranches.Add(newBranch.gameObject);
-    //                 // rotation = Vector3.zero;
-    //                 break;
-    //             case '[':
-    //                 // branchStack.Push(new BranchHistory(prevBranch.endPosition, rotation));
-    //                 branchStack.Push(prevBranch);
-    //                 break;
-    //             case ']':
-    //                 prevBranch = branchStack.Pop();
-    //                 rotation = prevBranch.rotation;
-    //                 break;
-    //             case '+':
-    //                 rotation += Vector3.forward * angle;
-    //                 break;
-    //             case '-':
-    //                 rotation -= Vector3.forward * angle;
-    //                 break;
-    //         }
-    //     }
-    //     StartCoroutine(parentBranch.Grow());
-    // }
 
     // Alternative display method for plays: GL lines
     public void DisplayPlantGL(string plant, Vector3 startPosition, float branchLength, float angle, float growthSpeed) {
@@ -200,10 +108,10 @@ public class PlantGenerator : MonoBehaviour
                     prevBranch = branchStack.Pop();
                     break;
                 case '+':
-                    rotation += Vector3.forward * angle;
+                    rotation -= Vector3.forward * angle;
                     break;
                 case '-':
-                    rotation -= Vector3.forward * angle;
+                    rotation += Vector3.forward * angle;
                     break;
             }
         }

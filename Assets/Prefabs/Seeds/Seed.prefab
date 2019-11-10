@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 6062103340088042585}
   - component: {fileID: 6062103340088042586}
   - component: {fileID: 7653891038978408622}
-  - component: {fileID: 6062103340088042587}
+  - component: {fileID: 310088556341156702}
   - component: {fileID: 6062103340088042588}
   - component: {fileID: 6062103340088042589}
   m_Layer: 10
-  m_Name: SeedTemplate
+  m_Name: Seed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 6062103340088042590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,12 +73,12 @@ SpriteRenderer:
   m_SortingLayerID: -53140479
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 49e08fef7506d7b4bbad97e0fd343ea9, type: 3}
+  m_Color: {r: 0.5660378, g: 0.40870893, b: 0.008009953, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -100,8 +100,8 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
---- !u!58 &6062103340088042587
-CircleCollider2D:
+--- !u!70 &310088556341156702
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -114,8 +114,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.1
+  m_Size: {x: 2.7531476, y: 3.3008785}
+  m_Direction: 0
 --- !u!50 &6062103340088042588
 Rigidbody2D:
   serializedVersion: 4
@@ -150,3 +150,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: {fileID: 0}
+  maxInitialTorque: 1.25
+  plantGenRef: {fileID: 0}

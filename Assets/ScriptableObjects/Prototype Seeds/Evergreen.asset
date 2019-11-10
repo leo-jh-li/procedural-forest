@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3e38166103ff53459f2b2a6aec2679d, type: 3}
-  m_Name: Bush
+  m_Name: Evergreen
   m_EditorClassIdentifier: 
-  name: Tree3
-  branchLength: 1.5
+  name: Evergreen
+  branchLength: 2
   branchWidth: 0.18
-  angle: 20
-  growthSpeed: 6
+  angle: 30
+  growthSpeed: 20
   iterations:
-    min: 6
-    max: 6
+    min: 10
+    max: 10
   gradient:
     serializedVersion: 2
     key0: {r: 0.0011087802, g: 0.4433962, b: 0, a: 1}
@@ -49,21 +49,12 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  axiom: VZFFF
+  axiom: FFFFX
   ruleset:
     characterRules:
-    - character: 86
-      rules:
-      - '[+++W][---W]YV'
-    - character: 87
-      rules:
-      - +X[-W]Z
     - character: 88
       rules:
-      - -W[+X]Z
+      - '[----Y][++++Y]FX'
     - character: 89
       rules:
-      - YZ
-    - character: 90
-      rules:
-      - '[-FFF][+FFF]F'
+      - F[-----F][+++++F]Y

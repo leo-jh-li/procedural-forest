@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
+    [SerializeField] private PlantGenerator plantGenRef;
     [SerializeField] private float dropCooldown;
     private float currCooldown;
     [SerializeField] private GameObject eraser;
@@ -42,6 +43,8 @@ public class PlayerControls : MonoBehaviour
 
     private void DropSeed() {
         GameObject seedObj = Instantiate(seedPrefab, GetMousePos(cam), Quaternion.identity);
-        seedObj.GetComponent<SeedBehaviour>().seed = GetRandomSeed();
+        SeedBehaviour seedBehaviour = seedObj.GetComponent<SeedBehaviour>();
+        seedBehaviour.seed = GetRandomSeed();
+        seedBehaviour.plantGenRef = plantGenRef;
     }
 }

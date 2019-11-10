@@ -10,8 +10,7 @@ public class Seed : ScriptableObject {
     public float branchWidth;
     public float angle;
     public float growthSpeed;
-    public RandomRange iterations;
-
+    public RandomRangeInt iterations;
     public Gradient gradient;
     public string axiom;
     [SerializeField] private RulesetDict ruleset = new RulesetDict();
@@ -25,7 +24,6 @@ public class Seed : ScriptableObject {
         foreach(CharRules charRules in ruleset.characterRules) {
             rulesDict.Add(charRules.character, charRules.rules);
         }
-        Debug.Log("rules loaded");
     }
 
     public Color GetColour() {
