@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: Bush
   m_EditorClassIdentifier: 
   name: Bush
-  branchLength: 1.5
-  branchWidth: 0.18
-  angle: 20
+  branchLength: 0.2
+  branchWidth: 0.15
+  angle: 28
   growthSpeed: 6
   iterations:
-    min: 6
+    min: 5
     max: 6
   gradient:
     serializedVersion: 2
-    key0: {r: 0.0011087802, g: 0.4433962, b: 0, a: 1}
-    key1: {r: 0.004805972, g: 0.33962262, b: 0.004805972, a: 1}
+    key0: {r: 0.0011087802, g: 0.3647059, b: 0, a: 1}
+    key1: {r: 0.004805972, g: 0.2627451, b: 0.004805972, a: 1}
     key2: {r: 1, g: 1, b: 1, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -49,21 +49,18 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  axiom: VZFFF
+  axiom: '[+X][-X][++X][--X]FX'
   ruleset:
     characterRules:
-    - character: 86
-      rules:
-      - '[+++W][---W]YV'
-    - character: 87
-      rules:
-      - +X[-W]Z
     - character: 88
       rules:
-      - -W[+X]Z
-    - character: 89
+      - V[+X][-X]W
+      - V[++X][--X]W
+      - V[++X][--X][++X][--X]W
+    - character: 87
       rules:
-      - YZ
-    - character: 90
+      - VX
+      - X
+    - character: 86
       rules:
-      - '[-FFF][+FFF]F'
+      - FFV

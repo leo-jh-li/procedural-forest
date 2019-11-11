@@ -5,13 +5,14 @@ using UnityEngine;
 public class Branch : MonoBehaviour
 {
     private LineRenderer lineRenderer;
-    public bool grown;
+    [HideInInspector] public bool grown;
     private float currLength;
-    public float maxLength;
-    public float width;
-    public Vector3 rotation;
+    [HideInInspector] public float maxLength;
+    [HideInInspector] public float width;
+    [HideInInspector] public Vector3 rotation;
+    // TODO
     public Vector3 worldEndPos;
-    public float growthSpeed;
+    [HideInInspector] public float growthSpeed;
     [SerializeField] private CapsuleCollider2D collider;
 
     public void Initialize(float maxLength, float width, Vector3 rotation, float growthSpeed, Color colour, bool instantGrowth) {
@@ -49,15 +50,15 @@ public class Branch : MonoBehaviour
             lineRenderer.SetPosition(1, currEndPos);
             currLength = Mathf.Min(currLength + growthSpeed * Time.deltaTime, maxLength);
             collider.enabled = true;
-            collider.transform.localPosition = currEndPos - transform.position;
+            collider.transform.position = (currEndPos + transform.position) / 2;
             collider.size = new Vector2(collider.size.x, currLength);
             yield return null;
         }
         lineRenderer.SetPosition(1, worldEndPos);
+        collider.transform.position = (worldEndPos + transform.position) / 2;
         grown = true;
         foreach(Transform childTransform in transform)
         {
-            // Debug.Log("grow");
             Branch childBranch = childTransform.GetComponent<Branch>();
             if (childBranch != null && !childBranch.grown) {
                 StartCoroutine(childBranch.Grow());
