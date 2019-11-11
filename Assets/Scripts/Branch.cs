@@ -10,8 +10,7 @@ public class Branch : MonoBehaviour
     [HideInInspector] public float maxLength;
     [HideInInspector] public float width;
     [HideInInspector] public Vector3 rotation;
-    // TODO
-    public Vector3 worldEndPos;
+    [HideInInspector] public Vector3 worldEndPos;
     [HideInInspector] public float growthSpeed;
     [SerializeField] private CapsuleCollider2D collider;
 

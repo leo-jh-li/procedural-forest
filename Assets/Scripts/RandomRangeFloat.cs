@@ -7,7 +7,7 @@ public class RandomRangeFloat
 {
     public float min;
     public float max;
-	
+
     public RandomRangeFloat(float min, float max) {
         this.min = min;
         this.max = max;

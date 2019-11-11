@@ -7,7 +7,7 @@ public class RandomRangeInt
 {
     public int min;
     public int max;
-	
+
     public RandomRangeInt(int min, int max) {
         this.min = min;
         this.max = max;

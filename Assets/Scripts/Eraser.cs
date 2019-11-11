@@ -8,8 +8,6 @@ public class Eraser : MonoBehaviour
     [SerializeField] private float minRadius;
     [SerializeField] private float maxRadius;
     [SerializeField] private ContactFilter2D branchFilter;
-    // TODO
-    // [SerializeField] private Sprite ring;
     [SerializeField] private LineRenderer ring;
     [SerializeField] private int ringSegments;
 
@@ -34,7 +32,6 @@ public class Eraser : MonoBehaviour
 
     private void Update() {
         Vector2 mousePos = PlayerControls.GetMousePos(cam);
-        // transform.position = mousePos;
         List<Collider2D> results = new List<Collider2D>();
         Physics2D.OverlapCircle(mousePos, eraserRadius, branchFilter, results);
         if (!Input.GetButton("Fire2")) {
